@@ -1,0 +1,33 @@
+# Define a function to initialize the most specific hypothesis
+def initialize_hypothesis(attributes):
+    hypothesis = ['0'] * len(attributes)
+    return hypothesis
+
+# Define the FIND-S algorithm
+def find_s_algorithm(training_data):
+    # Initialize the hypothesis with the most specific values
+    attributes = training_data[0][0]
+    hypothesis = initialize_hypothesis(attributes)
+    
+    # Iterate through the training data to find the most specific hypothesis
+    for example in training_data:
+        if example[1] == 'Yes':  # Check if it's a positive example
+            for i in range(len(attributes)):
+                if example[0][i] != hypothesis[i]:
+                    hypothesis[i] = '?'  # Generalize the hypothesis
+
+    return hypothesis
+
+# Define a function to demonstrate the FIND-S algorithm
+def demonstrate_find_s(training_data):
+    most_specific_hypothesis = find_s_algorithm(training_data)
+    return most_specific_hypothesis
+
+# Example training data (attributes, class label)
+training_data = [(['Sunny', 'Warm', 'Normal', 'Strong'], 'Yes'),
+                 (['Sunny', 'Warm', 'High', 'Strong'], 'Yes'),
+                 (['Cloudy', 'Cold', 'High', 'Strong'], 'No')]
+
+# Demonstrate the FIND-S algorithm
+result = demonstrate_find_s(training_data)
+print("Most specific hypothesis:", result)
